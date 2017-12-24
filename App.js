@@ -35,14 +35,25 @@ class Square extends Component {
 }
 
 class Board extends Component {
-  render() {
+  renderRow() {
     return (
-      <View style = {{flex:1, flexDirection: 'row'}}>
-        <Square size='80'/>
-        <Square size='80'/>
-        <Square size='80'/>
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        <Square size='80' />
+        <Square size='80' />
+        <Square size='80' />
       </View>
     );
+  }
+
+  render() {
+    return (
+      <View style={{ flex: 1, flexDirection: 'column' }}>
+        {this.renderRow()}
+        {this.renderRow()}
+        {this.renderRow()}
+      </View>
+    );
+
   }
 }
 
@@ -56,7 +67,7 @@ export default class App extends Component<{}> {
         <Text style={styles.instructions}>
           {instructions}
         </Text>
-        <Board/>
+        <Board />
       </View>
     );
   }
