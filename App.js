@@ -23,7 +23,8 @@ class Square extends Component {
   render() {
     return (
       <View style={{
-        backgroundColor: 'blue',
+        borderColor: 'black',
+        borderWidth: 1,
         width: Number(this.props.size),
         height: Number(this.props.size)
       }}>
@@ -37,7 +38,13 @@ class Square extends Component {
 class Board extends Component {
   renderRow() {
     return (
-      <View style={{ flex: 1, flexDirection: 'row' }}>
+      <View style={{
+        flex: 0,
+        flexDirection: 'row', 
+        padding: 0, 
+        margin: 0, 
+        borderWidth: 0,
+      }}>
         <Square size='80' />
         <Square size='80' />
         <Square size='80' />
