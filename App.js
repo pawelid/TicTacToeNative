@@ -25,8 +25,7 @@ class Square extends Component {
       <View style={{
         borderColor: 'black',
         borderWidth: 1,
-        width: Number(this.props.size),
-        height: Number(this.props.size)
+        flexGrow: 1
       }}>
         <Text>
         </Text>
@@ -39,15 +38,12 @@ class Board extends Component {
   renderRow() {
     return (
       <View style={{
-        flex: 0,
-        flexDirection: 'row', 
-        padding: 0, 
-        margin: 0, 
-        borderWidth: 0,
+        flex: 1,
+        flexDirection: 'row',
       }}>
-        <Square size='80' />
-        <Square size='80' />
-        <Square size='80' />
+        <Square />
+        <Square />
+        <Square />
       </View>
     );
   }
@@ -60,7 +56,6 @@ class Board extends Component {
         {this.renderRow()}
       </View>
     );
-
   }
 }
 
@@ -84,9 +79,6 @@ export default class App extends Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,
