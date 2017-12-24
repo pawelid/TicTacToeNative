@@ -1,6 +1,5 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * Tic Tac Toe react native app
  * @flow
  */
 
@@ -9,7 +8,8 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  Dimensions
 } from 'react-native';
 
 const instructions = Platform.select({
@@ -19,15 +19,25 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
+const dim = Dimensions.get('window');
+
 class Square extends Component {
   render() {
     return (
       <View style={{
         borderColor: 'black',
         borderWidth: 1,
-        flexGrow: 1
+        flexGrow: 1,
+
       }}>
-        <Text>
+        <Text style={{
+          flex: 1,
+          flexGrow: 1,
+          fontSize: 100,
+          textAlign: 'center',
+          textAlignVertical: 'center'
+        }}>
+          O
         </Text>
       </View>
     );
@@ -59,8 +69,13 @@ class Board extends Component {
   }
 }
 
-export default class App extends Component<{}> {
+export default class App extends Component {
   render() {
+
+    // TODO how to see
+    console.log('dim');
+    console.log(dim);
+
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
