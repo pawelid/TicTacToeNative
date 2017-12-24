@@ -19,23 +19,49 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-export default class App extends Component<{}> {
+class Square extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
+      <View style={{
+        backgroundColor: 'blue',
+        width: Number(this.props.size),
+        height: Number(this.props.size)
+      }}>
+        <Text>
         </Text>
       </View>
     );
   }
 }
+
+class Board extends Component {
+  render() {
+    return (
+      <View style = {{flex:1, flexDirection: 'row'}}>
+        <Square size='80'/>
+        <Square size='80'/>
+        <Square size='80'/>
+      </View>
+    );
+  }
+}
+
+export default class App extends Component<{}> {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Welcome to Tic Tac Toe!
+        </Text>
+        <Text style={styles.instructions}>
+          {instructions}
+        </Text>
+        <Board/>
+      </View>
+    );
+  }
+}
+
 
 const styles = StyleSheet.create({
   container: {
