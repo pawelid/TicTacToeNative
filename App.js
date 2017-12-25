@@ -72,7 +72,7 @@ class Board extends Component {
   }
 
   handlePress(i) {
-    if (this.state.squares[i]) {
+    if (this.state.squares[i] || calculateWinner(this.state.squares)) {
       return;
     }
 
