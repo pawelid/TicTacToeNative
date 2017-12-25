@@ -25,16 +25,6 @@ const dim = Dimensions.get('window');
 class Square extends Component {
   constructor(props) {
     super(props);
-    this.press = this.press.bind(this);
-    this.state = {
-      value: null
-    }
-  }
-
-  press() {
-    if (this.state.value == null) {
-      this.setState({ value: 'X' });
-    }
   }
 
   render() {
@@ -53,8 +43,8 @@ class Square extends Component {
           textAlign: 'center',
           textAlignVertical: 'center'
         }}
-          onPress={this.press}>
-          {this.state.value}
+          onPress={() => {this.props.onPress()}}>
+          {this.props.value}
         </Text>
       </View>
     );
@@ -62,15 +52,43 @@ class Square extends Component {
 }
 
 class Board extends Component {
-  renderRow() {
+  constructor(props) {
+    super(props);
+    /*
+    this.state = {
+      squares: Array(9).fill(null),
+    };
+    */
+    this.state = {
+      squares: [
+        'O', null, 'X',
+        'X', 'X', 'O',
+        'O', null, null,
+      ]
+    }
+  }
+
+  handlePress(i) {
+    alert(i);
+  }
+
+  renderSquare(i) {
+    return (
+      <Square 
+        value={this.state.squares[i]}
+        onPress={() => {this.handlePress(i)}}/>
+    );
+  }
+
+  renderRow(n) {
     return (
       <View style={{
         flex: 1,
         flexDirection: 'row',
       }}>
-        <Square />
-        <Square />
-        <Square />
+        {this.renderSquare(n*3)}
+        {this.renderSquare(n*3+1)}
+        {this.renderSquare(n*3+2)}
       </View>
     );
   }
@@ -78,9 +96,9 @@ class Board extends Component {
   render() {
     return (
       <View style={{ flex: 1, flexDirection: 'column' }}>
-        {this.renderRow()}
-        {this.renderRow()}
-        {this.renderRow()}
+        {this.renderRow(0)}
+        {this.renderRow(1)}
+        {this.renderRow(2)}
       </View>
     );
   }
@@ -89,7 +107,7 @@ class Board extends Component {
 export default class App extends Component {
   render() {
 
-    // TODO how to see
+    // TODO how to see log?
     console.log('dim');
     console.log(dim);
 
