@@ -5,20 +5,12 @@
 
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   View,
   Dimensions,
   Alert
 } from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
 const dim = Dimensions.get('window');
 
@@ -32,7 +24,7 @@ class Square extends Component {
       <View style={{
         borderColor: 'black',
         borderWidth: 1,
-        flex: 1/3,
+        flex: 1 / 3,
       }}
       >
 
@@ -91,6 +83,7 @@ class Board extends Component {
         flex: 1,
         flexDirection: 'row',
       }}>
+
         {this.renderSquare(n * 3)}
         {this.renderSquare(n * 3 + 1)}
         {this.renderSquare(n * 3 + 2)}
@@ -101,6 +94,9 @@ class Board extends Component {
   render() {
     return (
       <View style={{ flex: 1, flexDirection: 'column' }}>
+        <Text>
+          next turn: {this.state.xIsNext ? 'X' : 'O'}
+        </Text>
         {this.renderRow(0)}
         {this.renderRow(1)}
         {this.renderRow(2)}
@@ -120,9 +116,6 @@ export default class App extends Component {
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to Tic Tac Toe!
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
         </Text>
         <Board />
       </View>
