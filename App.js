@@ -9,7 +9,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Dimensions
+  Dimensions,
+  Alert
 } from 'react-native';
 
 const instructions = Platform.select({
@@ -22,22 +23,38 @@ const instructions = Platform.select({
 const dim = Dimensions.get('window');
 
 class Square extends Component {
+  constructor(props) {
+    super(props);
+    this.press = this.press.bind(this);
+    this.state = {
+      value: null
+    }
+  }
+
+  press() {
+    if (this.state.value == null) {
+      this.setState({ value: 'X' });
+    }
+  }
+
   render() {
     return (
       <View style={{
         borderColor: 'black',
         borderWidth: 1,
         flexGrow: 1,
+      }}
+      >
 
-      }}>
         <Text style={{
           flex: 1,
           flexGrow: 1,
           fontSize: 100,
           textAlign: 'center',
           textAlignVertical: 'center'
-        }}>
-          O
+        }}
+          onPress={this.press}>
+          {this.state.value}
         </Text>
       </View>
     );
