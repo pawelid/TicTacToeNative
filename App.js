@@ -32,13 +32,12 @@ class Square extends Component {
       <View style={{
         borderColor: 'black',
         borderWidth: 1,
-        flexGrow: 1,
+        flex: 1/3,
       }}
       >
 
         <Text style={{
           flex: 1,
-          flexGrow: 1,
           fontSize: 100,
           textAlign: 'center',
           textAlignVertical: 'center'
