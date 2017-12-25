@@ -43,7 +43,7 @@ class Square extends Component {
           textAlign: 'center',
           textAlignVertical: 'center'
         }}
-          onPress={() => {this.props.onPress()}}>
+          onPress={() => { this.props.onPress() }}>
           {this.props.value}
         </Text>
       </View>
@@ -64,19 +64,25 @@ class Board extends Component {
         'O', null, 'X',
         'X', 'X', 'O',
         'O', null, null,
-      ]
+      ],
+      xIsNext: true
     }
   }
 
   handlePress(i) {
-    alert(i);
+    let squares = this.state.squares.slice();
+    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    this.setState({
+      squares: squares,
+      xIsNext: !this.state.xIsNext
+    });
   }
 
   renderSquare(i) {
     return (
-      <Square 
+      <Square
         value={this.state.squares[i]}
-        onPress={() => {this.handlePress(i)}}/>
+        onPress={() => { this.handlePress(i) }} />
     );
   }
 
@@ -86,9 +92,9 @@ class Board extends Component {
         flex: 1,
         flexDirection: 'row',
       }}>
-        {this.renderSquare(n*3)}
-        {this.renderSquare(n*3+1)}
-        {this.renderSquare(n*3+2)}
+        {this.renderSquare(n * 3)}
+        {this.renderSquare(n * 3 + 1)}
+        {this.renderSquare(n * 3 + 2)}
       </View>
     );
   }
