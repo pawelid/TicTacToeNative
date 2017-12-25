@@ -14,6 +14,26 @@ import {
 
 const dim = Dimensions.get('window');
 
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+
 class Square extends Component {
   constructor(props) {
     super(props);
@@ -45,22 +65,17 @@ class Square extends Component {
 class Board extends Component {
   constructor(props) {
     super(props);
-    /*
     this.state = {
       squares: Array(9).fill(null),
-    };
-    */
-    this.state = {
-      squares: [
-        'O', null, 'X',
-        'X', 'X', 'O',
-        'O', null, null,
-      ],
       xIsNext: true
     }
   }
 
   handlePress(i) {
+    if (this.state.squares[i]) {
+      return;
+    }
+
     let squares = this.state.squares.slice();
     squares[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
@@ -79,11 +94,7 @@ class Board extends Component {
 
   renderRow(n) {
     return (
-      <View style={{
-        flex: 1,
-        flexDirection: 'row',
-      }}>
-
+      <View style={styles.row}>
         {this.renderSquare(n * 3)}
         {this.renderSquare(n * 3 + 1)}
         {this.renderSquare(n * 3 + 2)}
@@ -92,10 +103,20 @@ class Board extends Component {
   }
 
   render() {
+
+    const winner = calculateWinner(this.state.squares);
+
+    let status;
+    if (winner) {
+      status = "Winner: " + winner;
+    } else {
+      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+    }
+
     return (
-      <View style={{ flex: 1, flexDirection: 'column' }}>
-        <Text>
-          next turn: {this.state.xIsNext ? 'X' : 'O'}
+      <View style={styles.board}>
+        <Text style={styles.instructions}>
+          {status}
         </Text>
         {this.renderRow(0)}
         {this.renderRow(1)}
@@ -115,7 +136,7 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to Tic Tac Toe!
+          Tic Tac Toe
         </Text>
         <Board />
       </View>
@@ -131,11 +152,21 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: 20,
     textAlign: 'center',
+    color: 'black',
     margin: 10,
   },
   instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+    fontSize: 20,
+    textAlign: 'left',
+    color: 'black',
+    marginBottom: 10,
   },
+  board: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+  }
 });
