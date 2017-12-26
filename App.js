@@ -46,12 +46,7 @@ class Square extends Component {
 
   render() {
     return (
-      <View style={{
-        borderColor: 'black',
-        borderWidth: 1,
-        flex: 1 / 3,
-      }}
-      >
+      <View style={styles.square}>
 
         <Text style={{
           flex: 1,
@@ -115,7 +110,6 @@ class Board extends Component {
   }
 
   render() {
-
     const winner = calculateWinner(this.state.squares);
 
     let status;
@@ -180,5 +174,10 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: 'row',
+  },
+  square: {
+    borderColor: 'black',
+    borderWidth: 1,
+    flex: 1 / 3,
   }
 });
