@@ -41,20 +41,11 @@ function calculateWinner(squares) {
 }
 
 class Square extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <View style={styles.square}>
-
-        <Text style={{
-          flex: 1,
-          fontSize: this.props.highlight ? 100 : 50,
-          textAlign: 'center',
-          textAlignVertical: 'center'
-        }}
+        <Text
+          style={this.props.highlight ? styles.squareTextHighlight : styles.squareText}
           onPress={() => { this.props.onPress() }}>
           {this.props.value}
         </Text>
@@ -131,19 +122,15 @@ class Board extends Component {
     return (
       <View style={styles.board}>
         <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            height: 50
-          }}>
+          style={styles.manage}>
           <Text style={styles.instructions}>
             {status}
           </Text>
-          <View style={{ height: 20, width: 100 }}>
-          <Button
-            title='Reset'
-            onPress={() => { this.handleReset() }}
-          />
+          <View style={styles.button}>
+            <Button
+              title='Reset'
+              onPress={() => { this.handleReset() }}
+            />
           </View>
         </View>
         {this.renderRow(0)}
@@ -183,13 +170,21 @@ const styles = StyleSheet.create({
     color: 'black',
     margin: 10,
   },
+  manage: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 50
+  },
   instructions: {
+    flex: 2 / 3,
     height: 40,
     fontSize: 20,
     textAlign: 'left',
     textAlignVertical: 'center',
     color: 'black',
-
+  },
+  button: {
+    flex: 1 / 3
   },
   board: {
     flex: 1,
@@ -203,5 +198,17 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     flex: 1 / 3,
+  },
+  squareText: {
+    flex: 1,
+    fontSize: 50,
+    textAlign: 'center',
+    textAlignVertical: 'center'
+  },
+  squareTextHighlight: {
+    flex: 1,
+    fontSize: 100,  // bigger
+    textAlign: 'center',
+    textAlignVertical: 'center'
   }
 });
