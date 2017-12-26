@@ -28,7 +28,12 @@ function calculateWinner(squares) {
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      let winningSquares = Array(9).fill(false);
+      winningSquares[a] = winningSquares[b] = winningSquares[c] = true;
+      return {
+        winner: squares[a],
+        winningSquares: winningSquares
+      }
     }
   }
   return null;
@@ -50,7 +55,7 @@ class Square extends Component {
 
         <Text style={{
           flex: 1,
-          fontSize: 100,
+          fontSize: this.props.highlight ? 100 : 50,
           textAlign: 'center',
           textAlignVertical: 'center'
         }}
@@ -67,7 +72,8 @@ class Board extends Component {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
-      xIsNext: true
+      winningSquares: Array(9).fill(false),
+      xIsNext: true,
     }
   }
 
@@ -82,12 +88,18 @@ class Board extends Component {
       squares: squares,
       xIsNext: !this.state.xIsNext
     });
+
+    let winner = calculateWinner(squares);
+    if(winner) {
+      this.setState({winningSquares: winner.winningSquares});
+    }
   }
 
   renderSquare(i) {
     return (
       <Square
         value={this.state.squares[i]}
+        highlight={this.state.winningSquares[i]}
         onPress={() => { this.handlePress(i) }} />
     );
   }
@@ -108,7 +120,7 @@ class Board extends Component {
 
     let status;
     if (winner) {
-      status = "Winner: " + winner;
+      status = "Winner: " + winner.winner;
     } else {
       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }
