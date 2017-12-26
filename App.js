@@ -9,7 +9,8 @@ import {
   Text,
   View,
   Dimensions,
-  Alert
+  Alert,
+  Button
 } from 'react-native';
 
 const dim = Dimensions.get('window');
@@ -85,9 +86,17 @@ class Board extends Component {
     });
 
     let winner = calculateWinner(squares);
-    if(winner) {
-      this.setState({winningSquares: winner.winningSquares});
+    if (winner) {
+      this.setState({ winningSquares: winner.winningSquares });
     }
+  }
+
+  handleReset() {
+    this.setState({
+      squares: Array(9).fill(null),
+      winningSquares: Array(9).fill(false),
+      xIsNext: true,
+    })
   }
 
   renderSquare(i) {
@@ -121,9 +130,22 @@ class Board extends Component {
 
     return (
       <View style={styles.board}>
-        <Text style={styles.instructions}>
-          {status}
-        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            height: 50
+          }}>
+          <Text style={styles.instructions}>
+            {status}
+          </Text>
+          <View style={{ height: 20, width: 100 }}>
+          <Button
+            title='Reset'
+            onPress={() => { this.handleReset() }}
+          />
+          </View>
+        </View>
         {this.renderRow(0)}
         {this.renderRow(1)}
         {this.renderRow(2)}
@@ -162,10 +184,12 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   instructions: {
+    height: 40,
     fontSize: 20,
     textAlign: 'left',
+    textAlignVertical: 'center',
     color: 'black',
-    marginBottom: 10,
+
   },
   board: {
     flex: 1,
